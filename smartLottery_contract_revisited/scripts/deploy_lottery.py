@@ -5,7 +5,7 @@ from brownie import Lottery, config , network
 
 
 def deploy_lottery():
-    account = get_account(id="shan-acnt")
+    account = get_account()
     print(" @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@")
     print(account)
     lottery = Lottery.deploy(
@@ -21,14 +21,14 @@ def deploy_lottery():
     return lottery
 
 def start_lottery():
-    account = get_account(id="shan-acnt");
+    account = get_account();
     lottery = Lottery[-1]
     tx = lottery.startLottery(({"from": account}))
     tx.wait(1)
     print("Lottery has started")
 
 def enter_lottery():
-    account = get_account(id="shan-acnt")
+    account = get_account()
     lottery = Lottery[-1]
     val = lottery.getEntranceFee() + 1000000000
     endTx = lottery.enter({"from": account, "value": val})
@@ -36,9 +36,9 @@ def enter_lottery():
     print("Lottery Entered")
 
 def end_lottery():
-    account = get_account(id="shan-acnt")
-    lottery = Lottery[-1]
-    tx = fund_with_link(lottery.address)
+    account = get_account()
+    lottery = Lottery[-1] 
+    tx = fund_with_link(lottery)
     tx.wait(1)
     end_tx = lottery.endLottery({"from": account})
     end_tx.wait(1)
