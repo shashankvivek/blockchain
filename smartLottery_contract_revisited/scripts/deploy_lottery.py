@@ -21,21 +21,22 @@ def deploy_lottery():
     return lottery
 
 def start_lottery():
-    account = get_account();
+    account = get_account(id="shan-acnt");
     lottery = Lottery[-1]
     tx = lottery.startLottery(({"from": account}))
     tx.wait(1)
     print("Lottery has started")
 
 def enter_lottery():
-    account = get_account()
+    account = get_account(id="shan-acnt")
     lottery = Lottery[-1]
     val = lottery.getEntranceFee() + 1000000000
     endTx = lottery.enter({"from": account, "value": val})
     endTx.wait(1)
+    print("Lottery Entered")
 
 def end_lottery():
-    account = get_account()
+    account = get_account(id="shan-acnt")
     lottery = Lottery[-1]
     tx = fund_with_link(lottery.address)
     tx.wait(1)
